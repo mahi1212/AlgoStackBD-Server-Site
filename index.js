@@ -23,6 +23,7 @@ async function run() {
         const database = client.db("algoStackWebsite");
         const membersCollection = database.collection("members");
         const coursesCollection = database.collection("courses");
+        const videosCollection = database.collection("videos");
 
         app.get("/memberDetails", async (req, res) => {
             const cursor = membersCollection.find({});
@@ -51,6 +52,12 @@ async function run() {
         //     const myCourse = await coursesCollection.findOne(query)
         //     res.json(myCourse)
         // })
+        // get videos 
+        app.get("/videos", async (req, res) => {
+            const cursor = videosCollection.find({});
+            const videos = await cursor.toArray();
+            res.json(videos);
+        });
 
     } finally {
         //   await client.close();
