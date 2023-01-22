@@ -58,6 +58,13 @@ async function run() {
             const videos = await cursor.toArray();
             res.json(videos);
         });
+        // post videos
+        app.post("/videos", async (req, res) => {
+            const newVideo = req.body;
+            const result = await videosCollection.insertOne(newVideo);
+            res.json(result);
+        });
+
 
     } finally {
         //   await client.close();
