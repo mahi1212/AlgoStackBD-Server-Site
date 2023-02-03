@@ -24,7 +24,7 @@ async function run() {
         const membersCollection = database.collection("members");
         const coursesCollection = database.collection("courses");
         const videosCollection = database.collection("videos");
-
+        const usersCollection = database.collection("users");
         app.get("/memberDetails", async (req, res) => {
             const cursor = membersCollection.find({});
             const members = await cursor.toArray();
@@ -64,7 +64,44 @@ async function run() {
             const result = await videosCollection.insertOne(newVideo);
             res.json(result);
         });
-
+        // save users to database
+        app.post('/users', async(req, res) =>{
+            const newUser = req.body;
+            const result = await usersCollection.insertOne(newUser);
+            res.json(result);
+        })
+        // post users
+        // app.post("/login", async (req, res) => {
+        //     const email = req.body.email;
+        //     const password = req.body.password;
+        //     const query = { email: email, password: password }
+        //     const singleMember = await usersCollection.findOne(query)
+        //     res.json(singleMember)
+        //     console.log('hitted login', singleMember)
+        // })
+        // axios.post('http://localhost:5000/login', { email, password })
+        //     .then((res) => {
+        //         // If the email and password match, redirect the user to the dashboard
+        //         if (res.data) {
+        //             if (res.data.course === 'web') {
+        //                 const from = location?.state?.from || '/webClass'
+        //                 navigate(from, { replace: true });
+        //                 console.log(res.data, 'web');
+        //             } else {
+        //                 const from = location?.state?.from || '/appClass'
+        //                 navigate(from);
+        //                 console.log(res.data, 'app');
+        //             }
+        //             // const from = location?.state?.from || '/courses'
+        //             // navigate(from, { replace: true });
+        //             // setAuthError('');
+        //         } else {
+        //             setAuthError('No user found');
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.error(err);
+        //     });
 
     } finally {
         //   await client.close();
