@@ -1,18 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-// const SSLCommerzPayment = require('sslcommerz-lts')
-const { MongoClient, ServerApiVersion } = require("mongodb");
-var ObjectId = require('mongodb').ObjectId;
-require("dotenv").config();
-const app = express();
-const port = process.env.PORT || 5000;
+const express = require("express")
+const cors = require("cors")
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
+require('dotenv').config()
 
+const app = express()
+const port = process.env.PORT || 5000
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
-const uri = `mongodb+srv://sslcommerz:FwZigDrvq84Ends@cluster0.fwlhb0t.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fwlhb0t.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 // console.log(uri)
 async function run() {
@@ -110,7 +109,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-    res.send("Hello World! ok");
+    res.send("Hello World!");
 });
 
 app.listen(port, () => {
